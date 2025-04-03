@@ -8,14 +8,35 @@
     <link rel="icon" href="logo.jpg" type="image/png">
 </head>
 <body>
-   <header class="text-gray-400 bg-gray-800 body-font">
+  <header class="text-gray-400 bg-gray-800 body-font">
     <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
       <nav class="flex lg:w-2/5 flex-wrap items-center text-base md:ml-auto">
       </nav>
       <a class="flex order-first lg:order-none lg:w-1/5 title-font font-medium items-center text-white lg:items-center lg:justify-center mb-4 md:mb-0">
         <img src="logo.jpg" alt="" class="w-14 h-auto">
-        <span class="ml-3 text-xl xl:block lg:hidden">Knowledge Hub Academy</span>
+        <span class="ml-3 text-xl xl:block lg:hidden" style="color: black;" id="header-title">
+          Knowledge Hub Academy
+      </span>
+      
       </a>
+      <button id="theme-toggle" class="ml-4 p-2 rounded">
+        <svg id="sun-icon" class="w-6 h-6 hidden text-yellow-500" fill="none" stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <svg id="moon-icon" class="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+        </svg>
+    </button>
       <div class="lg:w-2/5 inline-flex lg:justify-end ml-5 lg:ml-0">
         <a href="https://www.youtube.com/@KNOWLEDGELOVERIA" target="_blank" class="inline-flex items-center bg-red-600 text-white border-0 py-1 px-3 focus:outline-none hover:bg-red-700 rounded text-base mt-4 md:mt-0">
             Visit Our YouTube
@@ -35,7 +56,8 @@
       <section class="text-gray-400 bg-gray-900 body-font">
         <div class="container px-5 py-24 mx-auto">
           <div class="flex flex-col text-center w-full mb-20">
-            <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-white">Our Memories</h1>
+            <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-black dark:text-white">Our Memories</h1>
+
             <p class="lg:w-2/3 mx-auto leading-relaxed text-base"></p>
           </div>
           <div class="flex flex-wrap -m-4">
@@ -113,12 +135,107 @@
         <div class="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
           <a class="flex title-font font-medium items-center md:justify-start justify-center text-white">
             <img src="logo.jpg" alt="" class="w-14 h-auto">
-            <span class="ml-3 text-xl">Knowledge Hub Academy</span>
+            <span class="ml-3 text-xl text-black dark:text-white">Knowledge Hub Academy</span>
+
           </a>
           <p class="text-sm text-gray-400 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-800 sm:py-2 sm:mt-0 mt-4">© 2024 KHA —
           </p>
           </span>
         </div>
       </footer>
+      <script>
+        const headerTitle = document.getElementById("header-title");
+
+function updateHeaderColor(isDark) {
+    if (isDark) {
+        headerTitle.style.color = "white"; // Set to pure white in dark mode
+    } else {
+        headerTitle.style.color = "black"; // Set to pure black in light mode
+    }
+}
+
+// Modify your existing `setTheme` function like this:
+function setTheme(isDark) {
+    if (isDark) {
+        document.documentElement.classList.add("dark");
+        localStorage.setItem("theme", "dark");
+        sunIcon.classList.remove("hidden");
+        moonIcon.classList.add("hidden");
+        console.log("Theme changed: Dark Mode");
+    } else {
+        document.documentElement.classList.remove("dark");
+        localStorage.setItem("theme", "light");
+        moonIcon.classList.remove("hidden");
+        sunIcon.classList.add("hidden");
+        console.log("Theme changed: Light Mode");
+    }
+    updateHeaderColor(isDark); // Update the header color dynamically
+}
+
+// Call the function on page load
+updateHeaderColor(localStorage.getItem("theme") === "dark");
+
+        const themeToggle = document.getElementById("theme-toggle");
+        const htmlElement = document.documentElement;
+        const sunIcon = document.getElementById("sun-icon");
+        const moonIcon = document.getElementById("moon-icon");
+    
+        function setTheme(isDark) {
+            if (isDark) {
+                document.documentElement.classList.add("dark");
+    
+                // Header
+                document.querySelector("header").classList.replace("bg-gray-800", "bg-white");
+                document.querySelector("header").classList.replace("text-gray-400", "text-gray-900");
+    
+                // Sections
+                document.querySelectorAll("section").forEach(section => {
+                    section.classList.replace("bg-gray-900", "bg-gray-100");
+                    section.classList.replace("text-gray-400", "text-gray-900");
+                });
+    
+                // Footer
+                document.querySelector("footer").classList.replace("bg-gray-900", "bg-gray-100");
+                document.querySelector("footer").classList.replace("text-gray-400", "text-gray-900");
+    
+                localStorage.setItem("theme", "dark");
+                sunIcon.classList.remove("hidden");
+                moonIcon.classList.add("hidden");
+                console.log("Theme changed: Dark Mode");
+            } else {
+                document.documentElement.classList.remove("dark");
+    
+                // Header
+                document.querySelector("header").classList.replace("bg-white", "bg-gray-800");
+                document.querySelector("header").classList.replace("text-gray-900", "text-gray-400");
+    
+                // Sections
+                document.querySelectorAll("section").forEach(section => {
+                    section.classList.replace("bg-gray-100", "bg-gray-900");
+                    section.classList.replace("text-gray-900", "text-gray-400");
+                });
+    
+                // Footer
+                document.querySelector("footer").classList.replace("bg-gray-100", "bg-gray-900");
+                document.querySelector("footer").classList.replace("text-gray-900", "text-gray-400");
+    
+                localStorage.setItem("theme", "light");
+                moonIcon.classList.remove("hidden");
+                sunIcon.classList.add("hidden");
+                console.log("Theme changed: Light Mode");
+            }
+        }
+    
+        // Load theme from localStorage
+        const savedTheme = localStorage.getItem("theme") === "light";
+        setTheme(savedTheme);
+    
+        // Toggle theme on button click
+        themeToggle.addEventListener("click", () => {
+            const isDark = localStorage.getItem("theme") === "light"; // FIXED
+            setTheme(isDark);
+        });
+        
+    </script>
 </body>
 </html>
